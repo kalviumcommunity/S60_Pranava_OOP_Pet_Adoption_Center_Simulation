@@ -9,19 +9,19 @@ class Pet {
     int age;
 
     public:
-    Pet(string name, string type, int age) {
-        this->name = name;
-        this->type = type;
-        this->age = age;
+    Pet(string n, string t, int a){
+        name = n;
+        type = t;
+        age = a;
+    }
+    
+    void getPetDetails(){
+        cout<<"Pet Name: "<< name << ", Type: " << type << ", Age: " << age << endl;
     }
 
-    void getPetDetails() {
-        cout << "Pet Name: " << name << ", Type: " << type << ", Age: " << age << endl;
-    }
-
-    void updateAge(int newAge) {
-        this->age = newAge;
-        cout << "Updated Age: " << age << endl;
+    void updateAge(int newAge){
+        age = newAge;
+        cout<<"Updated Age: " << age << endl;
     }
 };
 
@@ -31,41 +31,33 @@ class Owner {
     string address;
 
     public:
-    Owner(string ownerName, string address) {
-        this->ownerName = ownerName;
-        this->address = address;
+    Owner(string oName, string addr){
+        ownerName = oName;
+        address = addr;
     }
 
-    void getOwnerDetails() {
-        cout << "Owner Name: " << ownerName << ", Address: " << address << endl;
+    void getOwnerDetails(){
+        cout<<"Owner Name: "<< ownerName << ", Address: " << address << endl;
     }
 
-    void updateAddress(string newAddress) {
-        this->address = newAddress;
-        cout << "Updated Address: " << address << endl;
+    void updateAddress(string newAddress){
+        address = newAddress;
+        cout<<"Updated Address: " << address << endl;
     }
 };
 
 int main() {
-    Pet pets[3] = {
-        Pet("Blacky", "Dog" , 3),
-        Pet("Snowbell", "Cat", 1),
-        Pet("Jimmy", "Dog" , 4),
-    };
+    Pet pet1("BLACKY", "Dog", 3);
+    pet1.getPetDetails();  
+    pet1.updateAge(4); 
 
-    for (int i=0; i<3;i++){
-        pets[i].getPetDetails();
-    };
+    Pet pet2("DOMI", "Dog", 6);
+    pet2.getPetDetails();  
+    pet2.updateAge(7); 
 
-    Owner owners[3] = {
-        Owner("Pranava" , "1/270 Main Road"),
-        Owner("Stuart", "4 Gramercy Park West in New York City"),
-        Owner("Pranava", "1/270 Main Road"),
-    };
-
-    for (int i=0;i<3;i++){
-        owners[i].getOwnerDetails();
-    };
+    Owner owner1("Pranva", "1/270, Main Road");
+    owner1.getOwnerDetails();  
+    owner1.updateAddress("1/248, Main Road");    
 
     return 0;
 }
