@@ -52,10 +52,10 @@ int main() {
     pet1.updateAge(4); 
 
     Pet pet2("DOMI", "Dog", 6);
-    pet1.getPetDetails();  
-    pet1.updateAge(7); 
+    pet2.getPetDetails();  
+    pet2.updateAge(7); 
 
-    Owner owner1("Pranva" "1/270, Main Road");
+    Owner owner1("Pranva", "1/270, Main Road");
     owner1.getOwnerDetails();  
     owner1.updateAddress("1/248, Main Road");    
 
