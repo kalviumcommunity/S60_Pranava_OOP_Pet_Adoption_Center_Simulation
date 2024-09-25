@@ -47,17 +47,25 @@ class Owner {
 };
 
 int main() {
-    Pet pet1("BLACKY", "Dog", 3);
-    pet1.getPetDetails();
-    pet1.updateAge(4);
+    Pet pets[3] = {
+        Pet("Blacky", "Dog" , 3),
+        Pet("Snowbell", "Cat", 1),
+        Pet("Jimmy", "Dog" , 4),
+    };
 
-    Pet pet2("DOMI", "Dog", 6);
-    pet2.getPetDetails();
-    pet2.updateAge(7);
+    for (int i=0; i<3;i++){
+        pets[i].getPetDetails();
+    };
 
-    Owner owner1("Pranva", "1/270, Main Road");
-    owner1.getOwnerDetails();
-    owner1.updateAddress("1/248, Main Road");
+    Owner owners[3] = {
+        Owner("Pranava" , "1/270 Main Road"),
+        Owner("Stuart", "4 Gramercy Park West in New York City"),
+        Owner("Pranava", "1/270 Main Road"),
+    };
+
+    for (int i=0;i<3;i++){
+        owners[i].getOwnerDetails();
+    };
 
     return 0;
 }
