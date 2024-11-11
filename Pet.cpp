@@ -32,6 +32,10 @@ public:
         this->age = newAge;
         cout << "Updated Age: " << age << endl;
     }
+
+    static void displayTotalPets() { // Static function to display total pets
+        cout << "Total Pets: " << totalPets << endl;
+    }
 };
 
 // Initialize static variable
@@ -64,6 +68,10 @@ public:
     string getAddress() const { // Function to retrieve the current address
         return address;
     }
+
+    static void displayTotalOwners() { // Static function to display total owners
+        cout << "Total Owners: " << totalOwners << endl;
+    }
 };
 
 // Initialize static variable
@@ -83,7 +91,7 @@ int main() {
     }
 
     // Display total number of pets
-    cout << "Total Pets: " << Pet::totalPets << endl;
+    Pet::displayTotalPets();
 
     // Creating an array of 2 Owner objects using new
     Owner* owners = new Owner[2] {
@@ -95,14 +103,13 @@ int main() {
     string updatedAddresses[2] = {"1/270, First Street", "2/305, First Street"};
     for (int i = 0; i < 2; i++) {
         owners[i].getOwnerDetails();
-
-        // Update the address with the specific new address and print it immediately
+        //printing the updated address
         owners[i].updateAddress(updatedAddresses[i]);
         cout << "Changed Address: " << owners[i].getAddress() << endl;
     }
 
     // Display total number of owners
-    cout << "Total Owners: " << Owner::totalOwners << endl;
+    Owner::displayTotalOwners();
 
     // Deallocate memory
     delete[] pets;
