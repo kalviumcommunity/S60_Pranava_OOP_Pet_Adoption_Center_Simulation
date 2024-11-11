@@ -9,15 +9,18 @@ private:
     int age;
 
 public:
+    static int totalPets; // Static variable to keep count of Pet objects
+
     Pet() {} // Default constructor for array initialization
 
     Pet(string name, string type, int age) {
+        totalPets++;
         this->name = name;
         this->type = type;
         this->age = age;
     }
 
-    void getPetDetails() {
+    void getPetDetails() const {
         cout << "Pet Name: " << name << ", Type: " << type << ", Age: " << age << endl;
     }
 
@@ -31,20 +34,26 @@ public:
     }
 };
 
+// Initialize static variable
+int Pet::totalPets = 0;
+
 class Owner {
 private:
     string ownerName;
     string address;
 
 public:
+    static int totalOwners; // Static variable to keep count of Owner objects
+
     Owner() {} // Default constructor for array initialization
 
     Owner(string ownerName, string address) {
+        totalOwners++;
         this->ownerName = ownerName;
         this->address = address;
     }
 
-    void getOwnerDetails() {
+    void getOwnerDetails() const {
         cout << "Owner Name: " << ownerName << ", Address: " << address << endl;
     }
 
@@ -56,6 +65,9 @@ public:
         return address;
     }
 };
+
+// Initialize static variable
+int Owner::totalOwners = 0;
 
 int main() {
     // Creating an array of 2 Pet objects using new
@@ -69,6 +81,9 @@ int main() {
         pets[i].getPetDetails();
         pets[i].updateAge(pets[i].getAge() + 1); // Increment age by 1
     }
+
+    // Display total number of pets
+    cout << "Total Pets: " << Pet::totalPets << endl;
 
     // Creating an array of 2 Owner objects using new
     Owner* owners = new Owner[2] {
@@ -85,6 +100,9 @@ int main() {
         owners[i].updateAddress(updatedAddresses[i]);
         cout << "Changed Address: " << owners[i].getAddress() << endl;
     }
+
+    // Display total number of owners
+    cout << "Total Owners: " << Owner::totalOwners << endl;
 
     // Deallocate memory
     delete[] pets;
