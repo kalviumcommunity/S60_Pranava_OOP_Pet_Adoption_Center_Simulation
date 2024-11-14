@@ -14,19 +14,13 @@ public:
     static int totalPets; // Static variable to keep count of Pet objects
 
     // Default constructor for array initialization
-    Pet() {} 
+    Pet() { totalPets++; }
 
-    // Parameterized constructor to initialize a pet with name, type, and age
-    Pet(string name, string type, int age) {
-        totalPets++; // Increment total pet count whenever a new Pet is created
-        this->name = name;
-        this->type = type;
-        this->age = age;
-    }
-
-    // Function to display the details of a pet
-    void getPetDetails() const {
-        cout << "Pet Name: " << name << ", Type: " << type << ", Age: " << age << endl;
+    // Function to set pet details (abstracting direct attribute manipulation)
+    void setPetDetails(string petName, string petType, int petAge) {
+        name = petName;
+        type = petType;
+        age = petAge;
     }
 
     // Getter function to access the private attribute 'age'
@@ -34,9 +28,14 @@ public:
         return age;
     }
 
-    // Setter function to update the private attribute 'age'
+    // Function to display the details of a pet
+    void getPetDetails() const {
+        cout << "Pet Name: " << name << ", Type: " << type << ", Age: " << age << endl;
+    }
+
+    // Function to update the private attribute 'age'
     void updateAge(int newAge) {
-        this->age = newAge;
+        age = newAge;
         cout << "Updated Age: " << age << endl;
     }
 
@@ -60,13 +59,12 @@ public:
     static int totalOwners; // Static variable to keep count of Owner objects
 
     // Default constructor for array initialization
-    Owner() {}
+    Owner() { totalOwners++; }
 
-    // Parameterized constructor to initialize an owner with a name and address
-    Owner(string ownerName, string address) {
-        totalOwners++; // Increment total owner count whenever a new Owner is created
-        this->ownerName = ownerName;
-        this->address = address;
+    // Function to set owner details (abstracting direct attribute manipulation)
+    void setOwnerDetails(string name, string addr) {
+        ownerName = name;
+        address = addr;
     }
 
     // Function to display the details of an owner
@@ -74,9 +72,9 @@ public:
         cout << "Owner Name: " << ownerName << ", Address: " << address << endl;
     }
 
-    // Setter function to update the private attribute 'address'
+    // Function to update the private attribute 'address'
     void updateAddress(string newAddress) {
-        this->address = newAddress;
+        address = newAddress;
     }
 
     // Getter function to access the private attribute 'address'
@@ -94,11 +92,10 @@ public:
 int Owner::totalOwners = 0;
 
 int main() {
-    // Creating an array of 2 Pet objects using new operator
-    Pet* pets = new Pet[2] {
-        Pet("BLACKY", "Dog", 3),
-        Pet("DOMI", "Dog", 6)
-    };
+    // Create an array of 2 Pet objects and set their details
+    Pet pets[2];
+    pets[0].setPetDetails("BLACKY", "Dog", 3);
+    pets[1].setPetDetails("DOMI", "Dog", 6);
 
     // Display pet details and update age for each pet
     for (int i = 0; i < 2; i++) {
@@ -109,11 +106,10 @@ int main() {
     // Display total number of pets
     Pet::displayTotalPets();
 
-    // Creating an array of 2 Owner objects using new operator
-    Owner* owners = new Owner[2] {
-        Owner("Pranva", "1/270, Main Road"),
-        Owner("Rahul", "2/305, Second Street")
-    };
+    // Create an array of 2 Owner objects and set their details
+    Owner owners[2];
+    owners[0].setOwnerDetails("Pranva", "1/270, Main Road");
+    owners[1].setOwnerDetails("Rahul", "2/305, Second Street");
 
     // Display owner details and update address with specific new addresses
     string updatedAddresses[2] = {"1/270, First Street", "2/305, First Street"};
@@ -125,10 +121,6 @@ int main() {
 
     // Display total number of owners
     Owner::displayTotalOwners();
-
-    // Deallocate memory allocated for Pet and Owner arrays
-    delete[] pets;
-    delete[] owners;
 
     return 0;
 }
