@@ -15,6 +15,11 @@ public:
     void displayName() const {
         cout << "Name: " << name << endl;
     }
+
+    // Virtual destructor for the Person class
+    virtual ~Person() {
+        cout << "Person destructor called for " << name << endl;
+    }
 };
 
 // Class to represent a Pet with attributes for name, type, and age
@@ -129,7 +134,48 @@ public:
 // Initialize static variable
 int Owner::totalOwners = 0;
 
+// Derived class to represent a Trainer, inheriting from Person
+class Trainer : public Person {
+private:
+    string specialty;  // Specialty of the trainer (e.g., dog trainer)
+
+public:
+    // Parameterized constructor for Trainer
+    Trainer(string trainerName, string trainerSpecialty) : Person(trainerName), specialty(trainerSpecialty) {}
+
+    // Function to display trainer details
+    void getTrainerDetails() const {
+        cout << "Trainer Name: " << name << ", Specialty: " << specialty << endl;
+    }
+
+    // Destructor
+    ~Trainer() {
+        cout << "Person destructor called for " << name << endl;
+    }
+};
+
 int main() {
+    // Create an array of 2 Owner objects using parameterized constructor
+    Owner owners[2] = {
+        Owner("Pranava", "1/270, Main Road"),
+        Owner("Rahul", "2/305, Second Street")
+    };
+
+    // Display owner details and update address with specific new addresses
+    string updatedAddresses[2] = {"1/270, First Street", "2/305, First Street"};
+    for (int i = 0; i < 2; i++) {
+        owners[i].getOwnerDetails();  // Show details of the current owner
+        owners[i].updateAddress(updatedAddresses[i]);  // Update the owner's address
+        cout << "Changed Address: " << owners[i].getAddress() << endl;  // Print updated address
+    }
+
+    // Display total number of owners
+    Owner::displayTotalOwners();
+
+    // Create a Trainer object
+    Trainer trainer("Nithish", "Dog Trainer");
+    trainer.getTrainerDetails();
+
     // Create an array of 2 Pet objects using parameterized constructor
     Pet pets[2] = {
         Pet("BLACKY", "Dog", 3),
@@ -144,23 +190,6 @@ int main() {
 
     // Display total number of pets
     Pet::displayTotalPets();
-
-    // Create an array of 2 Owner objects using parameterized constructor
-    Owner owners[2] = {
-        Owner("Pranva", "1/270, Main Road"),
-        Owner("Rahul", "2/305, Second Street")
-    };
-
-    // Display owner details and update address with specific new addresses
-    string updatedAddresses[2] = {"1/270, First Street", "2/305, First Street"};
-    for (int i = 0; i < 2; i++) {
-        owners[i].getOwnerDetails();  // Show details of the current owner
-        owners[i].updateAddress(updatedAddresses[i]);  // Update the owner's address
-        cout << "Changed Address: " << owners[i].getAddress() << endl;  // Print updated address
-    }
-
-    // Display total number of owners
-    Owner::displayTotalOwners();
 
     return 0;
 }
