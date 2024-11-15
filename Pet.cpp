@@ -2,7 +2,7 @@
 #include <string>
 using namespace std;
 
-// Base class to represent a general person
+// Abstract class to represent a general person
 class Person {
 protected:
     string name;  // Name of the person
@@ -11,10 +11,8 @@ public:
     // Constructor for Person
     Person(string personName = "Unknown") : name(personName) {}
 
-    // Function to display the person's name
-    void displayName() const {
-        cout << "Name: " << name << endl;
-    }
+    // Pure virtual function to display person's details
+    virtual void displayDetails() const = 0;
 
     // Virtual destructor for the Person class
     virtual ~Person() {
@@ -110,8 +108,8 @@ public:
         address = addr;
     }
 
-    // Function to display the details of a pet owner
-    void getOwnerDetails() const {
+    // Function to display the details of a pet owner (overrides pure virtual function)
+    void displayDetails() const override {
         cout << "Owner Name: " << name << ", Address: " << address << endl;
     }
 
@@ -143,14 +141,14 @@ public:
     // Parameterized constructor for Trainer
     Trainer(string trainerName, string trainerSpecialty) : Person(trainerName), specialty(trainerSpecialty) {}
 
-    // Function to display trainer details
-    void getTrainerDetails() const {
+    // Function to display trainer details (overrides pure virtual function)
+    void displayDetails() const override {
         cout << "Trainer Name: " << name << ", Specialty: " << specialty << endl;
     }
 
     // Destructor
     ~Trainer() {
-        cout << "Person destructor called for " << name << endl;
+        cout << "Trainer destructor called for " << name << endl;
     }
 };
 
@@ -164,7 +162,7 @@ int main() {
     // Display owner details and update address with specific new addresses
     string updatedAddresses[2] = {"1/270, First Street", "2/305, First Street"};
     for (int i = 0; i < 2; i++) {
-        owners[i].getOwnerDetails();  // Show details of the current owner
+        owners[i].displayDetails();  // Show details of the current owner
         owners[i].updateAddress(updatedAddresses[i]);  // Update the owner's address
         cout << "Changed Address: " << owners[i].getAddress() << endl;  // Print updated address
     }
@@ -172,9 +170,9 @@ int main() {
     // Display total number of owners
     Owner::displayTotalOwners();
 
-    // Create a Trainer object
-    Trainer trainer("Nithish", "Dog Trainer");
-    trainer.getTrainerDetails();
+    // Create a Trainer object and use polymorphism
+    Person* person1 = new Trainer("Nithish", "Dog Trainer");
+    person1->displayDetails();  // Polymorphic call to display trainer details
 
     // Create an array of 2 Pet objects using parameterized constructor
     Pet pets[2] = {
@@ -190,6 +188,9 @@ int main() {
 
     // Display total number of pets
     Pet::displayTotalPets();
+
+    // Clean up
+    delete person1;
 
     return 0;
 }
