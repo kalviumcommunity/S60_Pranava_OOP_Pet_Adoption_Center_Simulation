@@ -2,6 +2,21 @@
 #include <string>
 using namespace std;
 
+// Base class to represent a general person
+class Person {
+protected:
+    string name;  // Name of the person
+
+public:
+    // Constructor for Person
+    Person(string personName = "Unknown") : name(personName) {}
+
+    // Function to display the person's name
+    void displayName() const {
+        cout << "Name: " << name << endl;
+    }
+};
+
 // Class to represent a Pet with attributes for name, type, and age
 class Pet {
 private:
@@ -60,40 +75,39 @@ public:
 // Initialize static variable
 int Pet::totalPets = 0;
 
-// Class to represent an Owner with attributes for name and address
-class Owner {
+// Derived class to represent a pet owner, inheriting from Person
+class Owner : public Person {
 private:
-    string ownerName;  // Name of the owner
-    string address;    // Address of the owner
+    string address;  // Address of the pet owner
 
 public:
     static int totalOwners;  // Static variable to keep count of Owner objects
 
     // Default constructor
-    Owner() : ownerName("Unknown"), address("Not Provided") {
+    Owner() : Person(), address("Not Provided") {
         totalOwners++;
     }
 
     // Parameterized constructor
-    Owner(string name, string addr) : ownerName(name), address(addr) {
+    Owner(string ownerName, string addr) : Person(ownerName), address(addr) {
         totalOwners++;
     }
 
     // Destructor
     ~Owner() {
-        cout << "Goodbye Owner: " << ownerName << endl;
+        cout << "Goodbye Owner: " << name << endl;
         totalOwners--;
     }
 
     // Function to set owner details
-    void setOwnerDetails(string name, string addr) {
-        ownerName = name;
+    void setOwnerDetails(string ownerName, string addr) {
+        name = ownerName;
         address = addr;
     }
 
-    // Function to display the details of an owner
+    // Function to display the details of a pet owner
     void getOwnerDetails() const {
-        cout << "Owner Name: " << ownerName << ", Address: " << address << endl;
+        cout << "Owner Name: " << name << ", Address: " << address << endl;
     }
 
     // Function to update the private attribute 'address'
