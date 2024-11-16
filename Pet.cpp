@@ -5,10 +5,11 @@ using namespace std;
 // Abstract class to represent a general person
 class Person {
 protected:
-    string name;  // Name of the person
+    string name;  
 
 public:
-    // Constructor for Person
+    
+    // initializing an constructor with no values
     Person(string personName = "Unknown") : name(personName) {}
 
     // Pure virtual function to display person's details
@@ -18,6 +19,18 @@ public:
     virtual ~Person() {
         cout << "Person destructor called for " << name << endl;
     }
+};
+
+//  display class for Owner separately
+class OwnerDisplay {
+public:
+    static void display(class Owner &owner);
+};
+
+//display class for Pet separately
+class PetDisplay {
+public:
+    static void display(class Pet &pet);
 };
 
 // Class to represent a Pet with attributes for name, type, and age
@@ -46,22 +59,11 @@ public:
         totalPets--;
     }
 
-    // Function to set pet details
-    void setPetDetails(string petName, string petType, int petAge) {
-        name = petName;
-        type = petType;
-        age = petAge;
-    }
 
-    // Getter function to access the private attribute 'age'
-    int getAge() const {
-        return age;
-    }
-
-    // Function to display the details of a pet
-    void getPetDetails() const {
-        cout << "Pet Name: " << name << ", Type: " << type << ", Age: " << age << endl;
-    }
+    // Getter functions for private attributes
+    string getName() const { return name; }
+    string getType() const { return type; }
+    int getAge() const { return age; }
 
     // Function to update the private attribute 'age'
     void updateAge(int newAge) {
@@ -73,9 +75,11 @@ public:
     static void displayTotalPets() {
         cout << "Total Pets: " << totalPets << endl;
     }
+
+    // Friend function to display details (SRP compliant)
+    friend void PetDisplay::display(Pet &pet);
 };
 
-// Initialize static variable
 int Pet::totalPets = 0;
 
 // Derived class to represent a pet owner, inheriting from Person
@@ -102,35 +106,36 @@ public:
         totalOwners--;
     }
 
-    // Function to set owner details
-    void setOwnerDetails(string ownerName, string addr) {
-        name = ownerName;
-        address = addr;
-    }
-
-    // Function to display the details of a pet owner (overrides pure virtual function)
-    void displayDetails() const override {
-        cout << "Owner Name: " << name << ", Address: " << address << endl;
-    }
 
     // Function to update the private attribute 'address'
     void updateAddress(string newAddress) {
         address = newAddress;
     }
 
-    // Getter function to access the private attribute 'address'
-    string getAddress() const {
-        return address;
-    }
+    // Getter functions for private attributes
+    string getName() const { return name; }
+    string getAddress() const { return address; }
+
 
     // Static function to display the total number of Owner objects created
     static void displayTotalOwners() {
         cout << "Total Owners: " << totalOwners << endl;
     }
+
+    // Implementation of pure virtual function from Person class
+    void displayDetails() const override {
+        cout << "Owner Name: " << name << ", Address: " << address << endl;
+    }
 };
 
-// Initialize static variable
 int Owner::totalOwners = 0;
+
+
+
+// Separate display function for Pet
+void PetDisplay::display(Pet &pet) {
+    cout << "Pet Name: " << pet.getName() << ", Type: " << pet.getType() << ", Age: " << pet.getAge() << endl;
+}
 
 // Derived class to represent a Trainer, inheriting from Person
 class Trainer : public Person {
@@ -153,11 +158,12 @@ public:
 };
 
 int main() {
-    // Create an array of 2 Owner objects using parameterized constructor
-    Owner owners[2] = {
-        Owner("Pranava", "1/270, Main Road"),
-        Owner("Rahul", "2/305, Second Street")
-    };
+    // Create individual Owner objects
+    Owner owner1("Pranava", "1/270, Main Road");
+    Owner owner2("Rahul", "2/305, Second Street");
+
+    // Store them in an array
+    Owner owners[2] = { owner1, owner2 };
 
     // Display owner details and update address with specific new addresses
     string updatedAddresses[2] = {"1/270, First Street", "2/305, First Street"};
@@ -182,7 +188,7 @@ int main() {
 
     // Display pet details and update age for each pet
     for (int i = 0; i < 2; i++) {
-        pets[i].getPetDetails();  // Show details of the current pet
+        PetDisplay::display(pets[i]);  // Show details of the current pet
         pets[i].updateAge(pets[i].getAge() + 1);  // Increment pet's age by 1
     }
 
