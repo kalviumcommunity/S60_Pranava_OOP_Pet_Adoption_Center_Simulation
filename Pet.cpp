@@ -5,11 +5,10 @@ using namespace std;
 // Abstract class to represent a general person
 class Person {
 protected:
-    string name;  
+    string name;  // Name of the person
 
 public:
-    
-    // initializing an constructor with no values
+    // Constructor for Person
     Person(string personName = "Unknown") : name(personName) {}
 
     // Pure virtual function to display person's details
@@ -21,13 +20,13 @@ public:
     }
 };
 
-//  display class for Owner separately
+// Separate display class for Owner
 class OwnerDisplay {
 public:
     static void display(class Owner &owner);
 };
 
-//display class for Pet separately
+// Separate display class for Pet
 class PetDisplay {
 public:
     static void display(class Pet &pet);
@@ -58,7 +57,6 @@ public:
         cout << "Goodbye Pet: " << name << endl;
         totalPets--;
     }
-
 
     // Getter functions for private attributes
     string getName() const { return name; }
@@ -106,7 +104,6 @@ public:
         totalOwners--;
     }
 
-
     // Function to update the private attribute 'address'
     void updateAddress(string newAddress) {
         address = newAddress;
@@ -115,7 +112,6 @@ public:
     // Getter functions for private attributes
     string getName() const { return name; }
     string getAddress() const { return address; }
-
 
     // Static function to display the total number of Owner objects created
     static void displayTotalOwners() {
@@ -129,8 +125,6 @@ public:
 };
 
 int Owner::totalOwners = 0;
-
-
 
 // Separate display function for Pet
 void PetDisplay::display(Pet &pet) {
