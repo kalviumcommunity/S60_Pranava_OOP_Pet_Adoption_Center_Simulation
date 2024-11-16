@@ -5,10 +5,11 @@ using namespace std;
 // Abstract class to represent a general person
 class Person {
 protected:
-    string name;  // Name of the person
+    string name;  
 
 public:
-    // Constructor for Person
+    
+    // initializing an constructor with no values
     Person(string personName = "Unknown") : name(personName) {}
 
     // Pure virtual function to display person's details
@@ -20,13 +21,13 @@ public:
     }
 };
 
-// Separate display class for Owner
+//  display class for Owner separately
 class OwnerDisplay {
 public:
     static void display(class Owner &owner);
 };
 
-// Separate display class for Pet
+//display class for Pet separately
 class PetDisplay {
 public:
     static void display(class Pet &pet);
