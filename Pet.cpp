@@ -29,7 +29,7 @@ public:
 // Separate display class for Pet
 class PetDisplay {
 public:
-    static void display(class Pet &pet);
+    static void display(const class Pet &pet);  // Use 'const' reference
 };
 
 // Class to represent a Pet with attributes for name, type, and age
@@ -75,7 +75,7 @@ public:
     }
 
     // Friend function to display details (SRP compliant)
-    friend void PetDisplay::display(Pet &pet);
+    friend void PetDisplay::display(const Pet &pet);
 };
 
 int Pet::totalPets = 0;
@@ -127,7 +127,7 @@ public:
 int Owner::totalOwners = 0;
 
 // Separate display function for Pet
-void PetDisplay::display(Pet &pet) {
+void PetDisplay::display(const Pet &pet) {  // Now taking 'const Pet&'
     cout << "Pet Name: " << pet.getName() << ", Type: " << pet.getType() << ", Age: " << pet.getAge() << endl;
 }
 
